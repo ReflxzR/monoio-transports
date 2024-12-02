@@ -80,16 +80,14 @@ impl<C, K: 'static, IO: AsyncWriteRent + 'static> HttpConnector<C, K, IO> {
 
     pub fn new_with_pool_options(
         connector: C,
-        h1_pool_size: Option<usize>,
-        h1_pool_idle_interval: Option<Duration>,
-        h2_pool_size: Option<usize>,
-        h2_pool_idle_interval: Option<Duration>,
+        max_idle_conns: Option<usize>,
+        pool_idle_interval: Option<Duration>,
     ) -> Self {
         Self {
             connector,
             protocol: Protocol::default(),
-            h1_pool: Some(ConnectionPool::new_with_idle_interval(h1_pool_idle_interval, h1_pool_size)),
-            h2_pool: ConnectionPool::new_with_idle_interval(h2_pool_idle_interval, h2_pool_size),
+            h1_pool: Some(ConnectionPool::new_with_idle_interval(pool_idle_interval,  max_idle_conns)),
+            h2_pool: ConnectionPool::new_with_idle_interval(pool_idle_interval, max_idle_conns),
             connecting: UnsafeCell::new(HashMap::new()),
             h2_builder: MonoioH2Builder::default(),
             read_timeout: None,
