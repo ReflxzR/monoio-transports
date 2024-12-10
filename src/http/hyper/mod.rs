@@ -20,7 +20,9 @@
 //!
 //! Note: The HTTP/2 implementation includes a custom stream management system to work around
 //! limitations in Hyper's stream counting capabilities.
+#[cfg(all(not(feature = "monoio-legacy"), not(feature = "hyper-native-tls")))]
 mod body;
+
 use std::{
     cell::UnsafeCell,
     collections::HashMap,
@@ -28,6 +30,7 @@ use std::{
     rc::Rc,
 };
 
+#[cfg(all(not(feature = "monoio-legacy"), not(feature = "hyper-native-tls")))]
 pub use body::{HyperBody, MonoioBody};
 use hyper::{
     body::Body,
