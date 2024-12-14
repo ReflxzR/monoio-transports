@@ -119,9 +119,18 @@
 //! By leveraging monoio's efficient asynchronous runtime, io_uring, and advanced connection
 //! pooling, `monoio-transports` provides a powerful and flexible toolkit for building
 //! high-performance network applications and HTTP clients.
+#[cfg(not(feature = "default-crate"))]
 mod error;
+#[cfg(not(feature = "default-crate"))]
 pub use error::*;
-
+#[cfg(not(feature = "default-crate"))]
 pub mod connectors;
+#[cfg(not(feature = "default-crate"))]
 pub mod http;
+#[allow(dead_code)]
+#[cfg(not(feature = "default-crate"))]
 pub mod pool;
+
+
+#[cfg(feature = "default-crate")]
+pub use monoio_transports::*;

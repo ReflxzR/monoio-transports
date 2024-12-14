@@ -46,10 +46,14 @@
 //!   interfaces.
 //! - [`HyperH2Connector`](hyper::HyperH2Conenctor): An HTTP/2 connector compatible with Hyper's
 //!   interfaces.
+#[cfg(not(feature = "monoio-legacy"))]
 mod connection;
+#[cfg(not(feature = "monoio-legacy"))]
 mod connector;
 
+#[cfg(not(feature = "monoio-legacy"))]
 pub use connection::HttpConnection;
+#[cfg(not(feature = "monoio-legacy"))]
 pub use connector::{H1Connector, HttpConnector};
 
 #[cfg(feature = "hyper")]
