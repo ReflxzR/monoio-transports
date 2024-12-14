@@ -3,10 +3,11 @@ authors = ["ChiHai <ihciah@gmail.com>", "Rain <rain-jiang@outlook.com>"]
 description = "Monoio Transporter."
 edition = "2021"
 license = "MIT/Apache-2.0"
-name = "monoio-transports-patched"
+name = "monoio-transports"
 version = "0.5.3"
 
 [dependencies]
+monoio-transports = { version = "0.5.3", optional = true }
 monoio = { version = "0.2.4", default-features = false }
 monoio-compat = { version = "0.2.2", optional = true }
 service-async = "0.2.4"
@@ -51,7 +52,12 @@ tracing = "0.1"
 tracing-subscriber = "0.3"
 
 [features]
-default = ["monoio-default"]
+default = ["default-crate"]
+
+default-crate = ["monoio-transports"]
+crate-hyper = ["default-crate", "monoio-transports/hyper"]
+crate-native-tls = ["default-crate", "monoio-transports/native-tls"]
+
 # Enable this feature to make connection pool periodically checking works.
 # You must enable time driver to use it.
 time = []
