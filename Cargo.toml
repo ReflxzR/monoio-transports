@@ -25,7 +25,7 @@ smol_str = "0.2"
 
 rustls = "~0.23.4"
 webpki-roots = "~0.26.7"
-native-tls = { version = "0.2", optional = true }
+native-tls = { version = "0.2", optional = true, features = ["alpn"] }
 
 # Available only on hyper feature only. Used for hyper tls connections
 tokio-native-tls = { version = "0.3.1", optional = true}
@@ -74,7 +74,9 @@ hyper = [
 rustls-unsafe-io = ["monoio-rustls/unsafe_io"]
 native-tls = ["dep:native-tls", "monoio-native-tls"]
 logging = ["tracing", "monoio-rustls/logging"]
-monoio-default = [
+
+# This feature is specifically to enable http connector pool support
+pool = [
     "monoio/default",
     "monoio-rustls",
     "monoio-http",
@@ -82,7 +84,7 @@ monoio-default = [
 ]
 
 # This feature is specifically to enable tls support for hyper connectors
-monoio-legacy = [
+hyper-tls = [
     "monoio/legacy",
     "monoio/tokio-compat",
     "monoio/async-cancel",
@@ -95,4 +97,4 @@ monoio-legacy = [
 ]
 
 # by default hyper connector will use rustls
-hyper-native-tls = ["tokio-native-tls", "native-tls/alpn", "monoio-legacy"]
+hyper-native-tls = ["tokio-native-tls", "dep:native-tls", "hyper-tls"]

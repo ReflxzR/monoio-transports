@@ -20,12 +20,12 @@
 //!
 //! Note: The HTTP/2 implementation includes a custom stream management system to work around
 //! limitations in Hyper's stream counting capabilities.
-#[cfg(not(feature = "monoio-legacy"))]
+#[cfg(not(feature = "hyper-tls"))]
 mod body;
-#[cfg(feature = "monoio-legacy")]
+#[cfg(feature = "hyper-tls")]
 mod tls_connector;
-#[cfg(feature = "monoio-legacy")]
-pub use tls_connector::{HyperTlsConnector, ServerName};
+#[cfg(feature = "hyper-tls")]
+pub use tls_connector::{HyperTlsConnector, ServerName, TlsError};
 
 use std::{
     cell::UnsafeCell,
@@ -34,7 +34,7 @@ use std::{
     rc::Rc,
 };
 
-#[cfg(not(feature = "monoio-legacy"))]
+#[cfg(not(feature = "hyper-tls"))]
 pub use body::{HyperBody, MonoioBody};
 use hyper::{
     body::Body,

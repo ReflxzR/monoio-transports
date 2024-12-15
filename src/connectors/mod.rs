@@ -8,13 +8,13 @@
 mod l4_connector;
 #[cfg(feature = "hyper")]
 pub mod pollio;
-#[cfg(not(feature = "monoio-legacy"))]
+#[cfg(not(feature = "hyper-tls"))]
 mod tls_connector;
 
 use std::{future::Future, time::Duration};
 
 pub use l4_connector::*;
-#[cfg(not(feature = "monoio-legacy"))]
+#[cfg(not(feature = "hyper-tls"))]
 pub use tls_connector::*;
 
 /// The [`Connector`] trait defines an interface for establishing connections.

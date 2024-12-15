@@ -1,18 +1,17 @@
 fn main() {
-    let monoio_default = cfg!(feature = "monoio-default");
-    let monoio_legacy = cfg!(feature = "monoio-legacy");
+    let pool = cfg!(feature = "pool");
+    let hyper_tls = cfg!(feature = "hyper-tls");
     let default_crate = cfg!(feature = "default-crate");
 
-    // Ensure only one of monoio-default or monoio-legacy is enabled
-    if monoio_legacy && monoio_default {
-        panic!("The feature 'monoio-legacy' cannot work with 'monoio-default'. Consider disabling default features.");
+    if hyper_tls && pool {
+        panic!("The feature 'hyper-tls' cannot be enabled with feature 'pool'");
     }
 
-    if default_crate && (monoio_default || monoio_legacy) {
-        panic!("The features 'monoio-default' or 'monoio-legacy' cannot be used with 'default-crate'");
+    if default_crate && (pool || hyper_tls) {
+        panic!("The features 'pool' or 'hyper-tls' cannot be used with 'default-crate'. Disable any one of them or disable default features");
     }
 
-    if !monoio_legacy && !monoio_default && !default_crate {
-        panic!("At least one of 'monoio-default' or 'monoio-legacy' or 'default-crate' must be enabled.");
+    if !pool && !hyper_tls && !default_crate {
+        panic!("No features enabled! At least one of 'pool' or 'hyper-tls' or 'default-crate' must be enabled");
     }
 }
