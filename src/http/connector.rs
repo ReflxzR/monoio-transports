@@ -293,7 +293,6 @@ macro_rules! try_get {
                 // Remove any connections that have errored
                 match idle.conn.conn_error() {
                     Some(_e) => {
-                        println!("Removing connection");
                         #[cfg(feature = "logging")]
                         tracing::debug!("Removing invalid connection: {:?}", _e);
                         false

@@ -1,6 +1,6 @@
 [package]
 name = "monoio-transports-netreq-fork"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Priyanshu Singh <anshu.singh1429@gmail.com>"]
 description = "This is a personal fork of the monoio-transports crate"
 edition = "2021"
